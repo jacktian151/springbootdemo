@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootdemo.mapper.OfficeMapper">
+  <resultMap id="BaseResultMap" type="com.example.springbootdemo.entity.Office">
+    <id column="id" jdbcType="NVARCHAR" property="id" />
+    <result column="parent_id" jdbcType="NVARCHAR" property="parent_id" />
+    <result column="parent_ids" jdbcType="NVARCHAR" property="parent_ids" />
+    <result column="name" jdbcType="NVARCHAR" property="name" />
+    <result column="sort" jdbcType="DECIMAL" property="sort" />
+    <result column="area_id" jdbcType="NVARCHAR" property="area_id" />
+    <result column="code" jdbcType="NVARCHAR" property="code" />
+    <result column="type" jdbcType="NCHAR" property="type" />
+    <result column="grade" jdbcType="NCHAR" property="grade" />
+    <result column="address" jdbcType="NVARCHAR" property="address" />
+    <result column="zip_code" jdbcType="NVARCHAR" property="zip_code" />
+    <result column="master" jdbcType="NVARCHAR" property="master" />
+    <result column="phone" jdbcType="NVARCHAR" property="phone" />
+    <result column="fax" jdbcType="NVARCHAR" property="fax" />
+    <result column="email" jdbcType="NVARCHAR" property="email" />
+    <result column="USEABLE" jdbcType="NVARCHAR" property="USEABLE" />
+    <result column="PRIMARY_PERSON" jdbcType="NVARCHAR" property="PRIMARY_PERSON" />
+    <result column="DEPUTY_PERSON" jdbcType="NVARCHAR" property="DEPUTY_PERSON" />
+    <result column="create_by" jdbcType="NVARCHAR" property="create_by" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="create_date" />
+    <result column="update_by" jdbcType="NVARCHAR" property="update_by" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="update_date" />
+    <result column="remarks" jdbcType="NVARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="NCHAR" property="del_flag" />
+    <result column="parent_names" jdbcType="VARCHAR" property="parent_names" />
+    <result column="custype" jdbcType="VARCHAR" property="custype" />
+    <result column="companytype" jdbcType="VARCHAR" property="companytype" />
+    <result column="attribute" jdbcType="NCHAR" property="attribute" />
+    <result column="shopCode" jdbcType="INTEGER" property="shopCode" />
+    <result column="isThreeFranchisee" jdbcType="NCHAR" property="isThreeFranchisee" />
+    <result column="crm_parentid" jdbcType="BIGINT" property="crm_parentid" />
+    <result column="crm_id" jdbcType="BIGINT" property="crm_id" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, parent_id, parent_ids, name, sort, area_id, code, type, grade, address, zip_code, 
+    master, phone, fax, email, USEABLE, PRIMARY_PERSON, DEPUTY_PERSON, create_by, create_date, 
+    update_by, update_date, remarks, del_flag, parent_names, custype, companytype, attribute, 
+    shopCode, isThreeFranchisee, crm_parentid, crm_id
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_office
+    where id = #{id,jdbcType=NVARCHAR}
+  </select>
+
+  <select id="getChildrenByParentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_office
+    where attribute = 4 or attribute = 3
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_office
+    where id = #{id,jdbcType=NVARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.springbootdemo.entity.Office">
+    insert into sys_office (id, parent_id, parent_ids, 
+      name, sort, area_id, 
+      code, type, grade, address, 
+      zip_code, master, phone, 
+      fax, email, USEABLE, 
+      PRIMARY_PERSON, DEPUTY_PERSON, create_by, 
+      create_date, update_by, update_date, 
+      remarks, del_flag, parent_names, 
+      custype, companytype, attribute, 
+      shopCode, isThreeFranchisee, crm_parentid, 
+      crm_id)
+    values (#{id,jdbcType=NVARCHAR}, #{parent_id,jdbcType=NVARCHAR}, #{parent_ids,jdbcType=NVARCHAR}, 
+      #{name,jdbcType=NVARCHAR}, #{sort,jdbcType=DECIMAL}, #{area_id,jdbcType=NVARCHAR}, 
+      #{code,jdbcType=NVARCHAR}, #{type,jdbcType=NCHAR}, #{grade,jdbcType=NCHAR}, #{address,jdbcType=NVARCHAR}, 
+      #{zip_code,jdbcType=NVARCHAR}, #{master,jdbcType=NVARCHAR}, #{phone,jdbcType=NVARCHAR}, 
+      #{fax,jdbcType=NVARCHAR}, #{email,jdbcType=NVARCHAR}, #{USEABLE,jdbcType=NVARCHAR}, 
+      #{PRIMARY_PERSON,jdbcType=NVARCHAR}, #{DEPUTY_PERSON,jdbcType=NVARCHAR}, #{create_by,jdbcType=NVARCHAR}, 
+      #{create_date,jdbcType=TIMESTAMP}, #{update_by,jdbcType=NVARCHAR}, #{update_date,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=NVARCHAR}, #{del_flag,jdbcType=NCHAR}, #{parent_names,jdbcType=VARCHAR}, 
+      #{custype,jdbcType=VARCHAR}, #{companytype,jdbcType=VARCHAR}, #{attribute,jdbcType=NCHAR}, 
+      #{shopCode,jdbcType=INTEGER}, #{isThreeFranchisee,jdbcType=NCHAR}, #{crm_parentid,jdbcType=BIGINT}, 
+      #{crm_id,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.springbootdemo.entity.Office">
+    insert into sys_office
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="parent_id != null">
+        parent_id,
+      </if>
+      <if test="parent_ids != null">
+        parent_ids,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="area_id != null">
+        area_id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="zip_code != null">
+        zip_code,
+      </if>
+      <if test="master != null">
+        master,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="fax != null">
+        fax,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="USEABLE != null">
+        USEABLE,
+      </if>
+      <if test="PRIMARY_PERSON != null">
+        PRIMARY_PERSON,
+      </if>
+      <if test="DEPUTY_PERSON != null">
+        DEPUTY_PERSON,
+      </if>
+      <if test="create_by != null">
+        create_by,
+      </if>
+      <if test="create_date != null">
+        create_date,
+      </if>
+      <if test="update_by != null">
+        update_by,
+      </if>
+      <if test="update_date != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="del_flag != null">
+        del_flag,
+      </if>
+      <if test="parent_names != null">
+        parent_names,
+      </if>
+      <if test="custype != null">
+        custype,
+      </if>
+      <if test="companytype != null">
+        companytype,
+      </if>
+      <if test="attribute != null">
+        attribute,
+      </if>
+      <if test="shopCode != null">
+        shopCode,
+      </if>
+      <if test="isThreeFranchisee != null">
+        isThreeFranchisee,
+      </if>
+      <if test="crm_parentid != null">
+        crm_parentid,
+      </if>
+      <if test="crm_id != null">
+        crm_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NVARCHAR},
+      </if>
+      <if test="parent_id != null">
+        #{parent_id,jdbcType=NVARCHAR},
+      </if>
+      <if test="parent_ids != null">
+        #{parent_ids,jdbcType=NVARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="area_id != null">
+        #{area_id,jdbcType=NVARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=NCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=NCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=NVARCHAR},
+      </if>
+      <if test="zip_code != null">
+        #{zip_code,jdbcType=NVARCHAR},
+      </if>
+      <if test="master != null">
+        #{master,jdbcType=NVARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=NVARCHAR},
+      </if>
+      <if test="fax != null">
+        #{fax,jdbcType=NVARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=NVARCHAR},
+      </if>
+      <if test="USEABLE != null">
+        #{USEABLE,jdbcType=NVARCHAR},
+      </if>
+      <if test="PRIMARY_PERSON != null">
+        #{PRIMARY_PERSON,jdbcType=NVARCHAR},
+      </if>
+      <if test="DEPUTY_PERSON != null">
+        #{DEPUTY_PERSON,jdbcType=NVARCHAR},
+      </if>
+      <if test="create_by != null">
+        #{create_by,jdbcType=NVARCHAR},
+      </if>
+      <if test="create_date != null">
+        #{create_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_by != null">
+        #{update_by,jdbcType=NVARCHAR},
+      </if>
+      <if test="update_date != null">
+        #{update_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=NVARCHAR},
+      </if>
+      <if test="del_flag != null">
+        #{del_flag,jdbcType=NCHAR},
+      </if>
+      <if test="parent_names != null">
+        #{parent_names,jdbcType=VARCHAR},
+      </if>
+      <if test="custype != null">
+        #{custype,jdbcType=VARCHAR},
+      </if>
+      <if test="companytype != null">
+        #{companytype,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute != null">
+        #{attribute,jdbcType=NCHAR},
+      </if>
+      <if test="shopCode != null">
+        #{shopCode,jdbcType=INTEGER},
+      </if>
+      <if test="isThreeFranchisee != null">
+        #{isThreeFranchisee,jdbcType=NCHAR},
+      </if>
+      <if test="crm_parentid != null">
+        #{crm_parentid,jdbcType=BIGINT},
+      </if>
+      <if test="crm_id != null">
+        #{crm_id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.springbootdemo.entity.Office">
+    update sys_office
+    <set>
+      <if test="parent_id != null">
+        parent_id = #{parent_id,jdbcType=NVARCHAR},
+      </if>
+      <if test="parent_ids != null">
+        parent_ids = #{parent_ids,jdbcType=NVARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="area_id != null">
+        area_id = #{area_id,jdbcType=NVARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=NCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=NCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=NVARCHAR},
+      </if>
+      <if test="zip_code != null">
+        zip_code = #{zip_code,jdbcType=NVARCHAR},
+      </if>
+      <if test="master != null">
+        master = #{master,jdbcType=NVARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=NVARCHAR},
+      </if>
+      <if test="fax != null">
+        fax = #{fax,jdbcType=NVARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=NVARCHAR},
+      </if>
+      <if test="USEABLE != null">
+        USEABLE = #{USEABLE,jdbcType=NVARCHAR},
+      </if>
+      <if test="PRIMARY_PERSON != null">
+        PRIMARY_PERSON = #{PRIMARY_PERSON,jdbcType=NVARCHAR},
+      </if>
+      <if test="DEPUTY_PERSON != null">
+        DEPUTY_PERSON = #{DEPUTY_PERSON,jdbcType=NVARCHAR},
+      </if>
+      <if test="create_by != null">
+        create_by = #{create_by,jdbcType=NVARCHAR},
+      </if>
+      <if test="create_date != null">
+        create_date = #{create_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_by != null">
+        update_by = #{update_by,jdbcType=NVARCHAR},
+      </if>
+      <if test="update_date != null">
+        update_date = #{update_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=NVARCHAR},
+      </if>
+      <if test="del_flag != null">
+        del_flag = #{del_flag,jdbcType=NCHAR},
+      </if>
+      <if test="parent_names != null">
+        parent_names = #{parent_names,jdbcType=VARCHAR},
+      </if>
+      <if test="custype != null">
+        custype = #{custype,jdbcType=VARCHAR},
+      </if>
+      <if test="companytype != null">
+        companytype = #{companytype,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute != null">
+        attribute = #{attribute,jdbcType=NCHAR},
+      </if>
+      <if test="shopCode != null">
+        shopCode = #{shopCode,jdbcType=INTEGER},
+      </if>
+      <if test="isThreeFranchisee != null">
+        isThreeFranchisee = #{isThreeFranchisee,jdbcType=NCHAR},
+      </if>
+      <if test="crm_parentid != null">
+        crm_parentid = #{crm_parentid,jdbcType=BIGINT},
+      </if>
+      <if test="crm_id != null">
+        crm_id = #{crm_id,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.springbootdemo.entity.Office">
+    update sys_office
+    set parent_id = #{parent_id,jdbcType=NVARCHAR},
+      parent_ids = #{parent_ids,jdbcType=NVARCHAR},
+      name = #{name,jdbcType=NVARCHAR},
+      sort = #{sort,jdbcType=DECIMAL},
+      area_id = #{area_id,jdbcType=NVARCHAR},
+      code = #{code,jdbcType=NVARCHAR},
+      type = #{type,jdbcType=NCHAR},
+      grade = #{grade,jdbcType=NCHAR},
+      address = #{address,jdbcType=NVARCHAR},
+      zip_code = #{zip_code,jdbcType=NVARCHAR},
+      master = #{master,jdbcType=NVARCHAR},
+      phone = #{phone,jdbcType=NVARCHAR},
+      fax = #{fax,jdbcType=NVARCHAR},
+      email = #{email,jdbcType=NVARCHAR},
+      USEABLE = #{USEABLE,jdbcType=NVARCHAR},
+      PRIMARY_PERSON = #{PRIMARY_PERSON,jdbcType=NVARCHAR},
+      DEPUTY_PERSON = #{DEPUTY_PERSON,jdbcType=NVARCHAR},
+      create_by = #{create_by,jdbcType=NVARCHAR},
+      create_date = #{create_date,jdbcType=TIMESTAMP},
+      update_by = #{update_by,jdbcType=NVARCHAR},
+      update_date = #{update_date,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=NVARCHAR},
+      del_flag = #{del_flag,jdbcType=NCHAR},
+      parent_names = #{parent_names,jdbcType=VARCHAR},
+      custype = #{custype,jdbcType=VARCHAR},
+      companytype = #{companytype,jdbcType=VARCHAR},
+      attribute = #{attribute,jdbcType=NCHAR},
+      shopCode = #{shopCode,jdbcType=INTEGER},
+      isThreeFranchisee = #{isThreeFranchisee,jdbcType=NCHAR},
+      crm_parentid = #{crm_parentid,jdbcType=BIGINT},
+      crm_id = #{crm_id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=NVARCHAR}
+  </update>
+
+</mapper>

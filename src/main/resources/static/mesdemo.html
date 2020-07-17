@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>短信接口demo</title>
+</head>
+<body>
+    <div class="container">
+        <label for="name">账号</label>
+        <input type="text" class="name" id="name"><br>
+        <label for="password">密码</label>
+        <input type="password" class="password" id="password"><br>
+        <label for="phone">手机号</label>
+        <input type="text" id="phone">
+        <input type="button" class="codeButton" id="codeButton" onclick="codeButton(this)" value="点击获取验证码"><br>
+        <label for="code">验证码</label>
+        <input type="text" class="code" id="code"><br>
+
+
+        <button id="login" onclick="login()">登录</button>
+    </div>
+
+</body>
+<script src="assets/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    var codetime = 60;
+    function codeButton(obj) {
+        if($("#codeButton").prop("disabled") != true){
+            $.ajax({
+                url: "sms/send",
+                type: "post",
+                data: {
+                    telephone:$("#phone").val()
+                },
+                dataType: "json",
+                success: function(data){
+                    alert("发送成功");
+                }
+            });
+        }
+        if (codetime==0){
+            obj.removeAttribute("disabled");
+            obj.value="点击获取验证码";
+            codetime=60;
+            return
+        }else {
+            obj.setAttribute("disabled",true);
+            obj.value="重新发送("+ codetime +"s)";
+            codetime--;
+        }
+        setTimeout(function () {
+            codeButton(obj)
+        },1000)
+    }
+
+    function login() {
+        var username = $("#name").val();
+        var password = $("#password").val();
+        var phone = $("#phone").val();
+
+
+
+
+    }
+</script>
+
+</html>
