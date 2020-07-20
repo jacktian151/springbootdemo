@@ -7,6 +7,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -80,5 +81,19 @@ public class SmsDemo {
 //
 //    }
 
+    /**
+     * 验证码是否正确
+     * */
+    @RequestMapping("/iscode")
+    @ResponseBody
+    public String iscode(String code , HttpServletRequest httpServletRequest){
+        HttpSession session = httpServletRequest.getSession();
+        String sessioncode = session.getAttribute("code").toString();
+        if (sessioncode.equals(code)){
+            return "true";
+        }else {
+            return "false";
+        }
+    }
 
 }

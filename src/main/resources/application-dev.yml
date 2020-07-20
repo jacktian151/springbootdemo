@@ -7,32 +7,31 @@ server:
 #    password: gadmin!04crm&
 #    url: jdbc:sqlserver://192.168.5.109:1433;DatabaseName=jee_goldenhome_test
 #    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+#spring:
+#  datasource:
+#    username: sa
+#    password: 123456
+#    url: jdbc:sqlserver://localhost:1433;DatabaseName=test7.16
+#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
 spring:
   datasource:
-    username: sa
+    username: root
     password: 123456
-    url: jdbc:sqlserver://localhost:1433;DatabaseName=test7.16
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+
 
   mvc:
     static-path-pattern: /**
     resources:
       static-locations: classpath:static/
     view:
-#      prefix: /WEB-INF/view/
-#      suffix: .jsp
+      #      prefix: /WEB-INF/view/
+      #      suffix: .jsp
       prefix: /templates/
       suffix: .html
-
-
-
-
-#spring:
-#  datasource:
-#    username: root
-#    password: 1234
-#    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
-#    driver-class-name: com.mysql.jdbc.Driver
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
@@ -44,5 +43,5 @@ logging:
     com:
       example:
         springbootdemo:
-          mapper : debug
+          mapper: debug
 
