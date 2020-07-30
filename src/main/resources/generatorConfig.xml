@@ -49,15 +49,10 @@
 			指定列的java数据类型
 			<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
 		</table> -->
-<!--		<table tableName="sys_area" domainObjectName="Area"-->
+<!--		<table tableName="wx_user" domainObjectName="WxUser"-->
 <!--			enableCountByExample="false" enableDeleteByExample="false"-->
 <!--			enableSelectByExample="false" enableUpdateByExample="false">-->
-<!--			<property name="useActualColumnNames" value="true" />-->
-<!--		</table>-->
-<!--		<table tableName="sys_office" domainObjectName="Office"-->
-<!--			enableCountByExample="false" enableDeleteByExample="false"-->
-<!--			enableSelectByExample="false" enableUpdateByExample="false">-->
-<!--			<property name="useActualColumnNames" value="true" />-->
+<!--			<property name="useActualColumnNames" value="false" />-->
 <!--		</table>-->
 
 <!--		<table tableName="video" domainObjectName="Video"-->
@@ -65,10 +60,5 @@
 <!--			enableSelectByExample="false" enableUpdateByExample="false">-->
 <!--			<property name="useActualColumnNames" value="false" />-->
 <!--		</table>-->
-		<!--<table tableName="classes" domainObjectName="Classes"-->
-			<!--enableCountByExample="false" enableDeleteByExample="false"-->
-			<!--enableSelectByExample="false" enableUpdateByExample="false">-->
-			<!--<property name="useActualColumnNames" value="true" />-->
-		<!--</table>-->
 	</context>
 </generatorConfiguration>
