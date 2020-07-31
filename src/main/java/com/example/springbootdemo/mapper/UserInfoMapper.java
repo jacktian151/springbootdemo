@@ -21,4 +21,6 @@ public interface UserInfoMapper {
 
     int insertdb(List<UserInfo> list);
 
+    List<UserInfo> selectAll();
+
 }

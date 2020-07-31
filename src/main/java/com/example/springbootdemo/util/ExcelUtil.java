@@ -25,16 +25,17 @@ import java.util.List;
 import java.util.Map;
 
 public class ExcelUtil {
-    private final static String excel2003L =".xls";    //2003- 版本的excel
-    private final static String excel2007U =".xlsx";   //2007+ 版本的excel
+    private final static String excel2003L = ".xls";    //2003- 版本的excel
+    private final static String excel2007U = ".xlsx";   //2007+ 版本的excel
+
     /**
      * Excel导入
      */
-    public static  List<List<Object>> getBankListByExcel(InputStream in, String fileName) throws Exception{
+    public static List<List<Object>> getBankListByExcel(InputStream in, String fileName) throws Exception {
         List<List<Object>> list = null;
         //创建Excel工作薄
-        Workbook work = getWorkbook(in,fileName);
-        if(null == work){
+        Workbook work = getWorkbook(in, fileName);
+        if (null == work) {
             throw new Exception("创建Excel工作薄为空！");
         }
         Sheet sheet = null;
@@ -44,14 +45,18 @@ public class ExcelUtil {
         //遍历Excel中所有的sheet
         for (int i = 0; i < work.getNumberOfSheets(); i++) {
             sheet = work.getSheetAt(i);
-            if(sheet==null){continue;}
+            if (sheet == null) {
+                continue;
+            }
             //遍历当前sheet中的所有行
             //包涵头部，所以要小于等于最后一列数,这里也可以在初始值加上头部行数，以便跳过头部
             for (int j = sheet.getFirstRowNum(); j <= sheet.getLastRowNum(); j++) {
                 //读取一行
                 row = sheet.getRow(j);
                 //去掉空行和表头
-                if(row==null||row.getFirstCellNum()==j){continue;}
+                if (row == null || row.getFirstCellNum() == j) {
+                    continue;
+                }
                 //遍历所有的列
                 List<Object> li = new ArrayList<Object>();
                 for (int y = row.getFirstCellNum(); y < row.getLastCellNum(); y++) {
@@ -66,23 +71,24 @@ public class ExcelUtil {
 
     /**
      * 判断文件是哪种形式
-     * */
-    private static Workbook getWorkbook(InputStream inStr,String fileName) throws Exception {
+     */
+    private static Workbook getWorkbook(InputStream inStr, String fileName) throws Exception {
         Workbook wb = null;
         String fileType = fileName.substring(fileName.lastIndexOf("."));
-        if(excel2003L.equals(fileType)){
+        if (excel2003L.equals(fileType)) {
             wb = new HSSFWorkbook(inStr);  //2003-
-        }else if(excel2007U.equals(fileType)){
+        } else if (excel2007U.equals(fileType)) {
             wb = new XSSFWorkbook(inStr);  //2007+
-        }else{
+        } else {
             throw new Exception("解析的文件格式有误！");
         }
         return wb;
     }
+
     /**
      * 描述：对表格中数值进行格式化
      */
-    public static  Object getCellValue(Cell cell){
+    public static Object getCellValue(Cell cell) {
         Object value = null;
         DecimalFormat df = new DecimalFormat("0");  //格式化字符类型的数字
         SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");  //日期格式化
@@ -92,11 +98,11 @@ public class ExcelUtil {
                 value = cell.getRichStringCellValue().getString();
                 break;
             case NUMERIC:
-                if("General".equals(cell.getCellStyle().getDataFormatString())){
+                if ("General".equals(cell.getCellStyle().getDataFormatString())) {
                     value = df.format(cell.getNumericCellValue());
-                }else if("m/d/yy".equals(cell.getCellStyle().getDataFormatString())){
+                } else if ("m/d/yy".equals(cell.getCellStyle().getDataFormatString())) {
                     value = sdf.format(cell.getDateCellValue());
-                }else{
+                } else {
                     value = df2.format(cell.getNumericCellValue());
                 }
                 break;
@@ -111,8 +117,12 @@ public class ExcelUtil {
         }
         return value;
     }
-
-
+    /**
+     * 导入完成
+     * */
+    /**
+     * Excel表格导出
+     * */
 
 
 }
@@ -139,7 +149,6 @@ public class ExcelUtil {
 //
 //@Slf4j
 //public class ExcelUtil {
-
 
 
 //    /**

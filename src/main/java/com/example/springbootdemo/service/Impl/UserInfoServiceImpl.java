@@ -63,4 +63,9 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfoMapper.insertdb(salaryList);
         //salarymanageDao.insertInfoBatch(salaryList);
     }
+
+    @Override
+    public List<UserInfo> selectAll() {
+        return userInfoMapper.selectAll();
+    }
 }

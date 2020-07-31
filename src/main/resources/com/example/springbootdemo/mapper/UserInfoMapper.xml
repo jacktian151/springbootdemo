@@ -20,6 +20,10 @@
     id, orderNum, vipName, payMoney, name, province, city, area, address, tel, productName, 
     remarks
   </sql>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select *
+        from user_info
+    </select>
     <insert id="insertdb" parameterType="java.util.List" >
         insert into user_info ( orderNum, vipName,
         payMoney, name, province,
