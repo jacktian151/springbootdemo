@@ -5,52 +5,86 @@
     <title>短信接口demo</title>
 </head>
 <body>
-    <div class="container">
-        <label for="name">账号</label>
-        <input type="text" class="name" id="name"><br>
-        <label for="password">密码</label>
-        <input type="password" class="password" id="password"><br>
-        <label for="phone">手机号</label>
-        <input type="text" id="phone">
-        <input type="button" class="codeButton" id="codeButton" onclick="codeButton(this)" value="点击获取验证码"><br>
-        <label for="code">验证码</label>
-        <input type="text" class="code" id="code"><br>
+<div class="container">
+    <label for="name">账号</label>
+    <input type="text" class="name" id="name"><br>
+    <label for="password">密码</label>
+    <input type="password" class="password" id="password"><br>
+    <label for="phone">手机号</label>
+    <input type="text" id="phone">
+    <input type="button" class="codeButton" id="codeButton" onclick="codeButton(this)" value="点击获取验证码"><br>
+    <label for="code">验证码</label>
+    <input type="text" class="code" id="code"><br>
 
 
-        <button id="login" onclick="login()">登录</button>
-    </div>
+    <button id="login" onclick="login()">登录</button>
+</div>
+<div>
+    <form id="upload" enctype="multipart/form-data" method="post">
+        <input type="file" name="file" id="file"/>
+        <input type="button" value="提交" onclick="uploadPic();"/>
+        <span class="showUrl"></span>
+        <img src="" class="showPic" alt="">
+    </form>
+</div>
 
 </body>
 <script src="assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    function uploadPic() {
+        var form = document.getElementById('upload'),
+            formData = new FormData(form);
+        $.ajax({
+            url:"/import",
+            type:"post",
+            data:formData,
+            processData:false,
+            contentType:false,
+            success:function(res){
+                if(res){
+                    alert("上传成功！");
+                }
+                console.log(res);
+                $("#file").val("");
+                $(".showUrl").html(res);
+                $(".showPic").attr("src",res);
+            },
+            error:function(err){
+                alert("网络连接失败,稍后重试",err);
+            }
+
+        })
+
+    }
     var codetime = 59;
+
     function codeButton(obj) {
-        if($("#codeButton").prop("disabled") != true){
+        if ($("#codeButton").prop("disabled") != true) {
             $.ajax({
                 url: "sms/send",
                 type: "post",
                 data: {
-                    telephone:$("#phone").val()
+                    telephone: $("#phone").val()
                 },
                 dataType: "json",
-                success: function(data){
+                success: function (data) {
                     alert("发送成功");
                 }
             });
         }
-        if (codetime==0){
+        if (codetime == 0) {
             obj.removeAttribute("disabled");
-            obj.value="点击获取验证码";
-            codetime=60;
+            obj.value = "点击获取验证码";
+            codetime = 60;
             return
-        }else {
-            obj.setAttribute("disabled",true);
-            obj.value="重新发送("+ codetime +"s)";
+        } else {
+            obj.setAttribute("disabled", true);
+            obj.value = "重新发送(" + codetime + "s)";
             codetime--;
         }
         setTimeout(function () {
             codeButton(obj)
-        },1000)
+        }, 1000)
     }
 
     function login() {
@@ -61,18 +95,17 @@
             url: "sms/iscode",
             type: "post",
             data: {
-                code:$("#code").val()
+                code: $("#code").val()
             },
             dataType: "json",
-            success: function(data){
-                if (data==true){
+            success: function (data) {
+                if (data == true) {
                     alert("验证成功");
-                }else {
+                } else {
                     alert("验证失败");
                 }
             }
         });
-
 
 
     }
