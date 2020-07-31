@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootdemo.mapper.UserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.example.springbootdemo.entity.UserInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="orderNum" jdbcType="VARCHAR" property="ordernum"/>
+        <result column="vipName" jdbcType="VARCHAR" property="vipname"/>
+        <result column="payMoney" jdbcType="REAL" property="paymoney"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="area" jdbcType="VARCHAR" property="area"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="tel" jdbcType="VARCHAR" property="tel"/>
+        <result column="productName" jdbcType="VARCHAR" property="productname"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, orderNum, vipName, payMoney, name, province, city, area, address, tel, productName, 
+    remarks
+  </sql>
+    <insert id="insertdb" parameterType="java.util.List" >
+        insert into user_info ( orderNum, vipName,
+        payMoney, name, province,
+        city, area, address,
+        tel, productName, remarks
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            ( #{item.ordernum,jdbcType=VARCHAR}, #{item.vipname,jdbcType=VARCHAR},
+            #{item.paymoney,jdbcType=REAL}, #{item.name,jdbcType=VARCHAR}, #{item.province,jdbcType=VARCHAR},
+            #{item.city,jdbcType=VARCHAR}, #{item.area,jdbcType=VARCHAR}, #{item.address,jdbcType=VARCHAR},
+            #{item.tel,jdbcType=VARCHAR}, #{item.productname,jdbcType=VARCHAR}, #{item.remarks,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.example.springbootdemo.entity.UserInfo">
+    insert into user_info (id, orderNum, vipName, 
+      payMoney, name, province, 
+      city, area, address, 
+      tel, productName, remarks
+      )
+    values (#{id,jdbcType=INTEGER}, #{ordernum,jdbcType=VARCHAR}, #{vipname,jdbcType=VARCHAR}, 
+      #{paymoney,jdbcType=REAL}, #{name,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{productname,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.example.springbootdemo.entity.UserInfo">
+        insert into user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="ordernum != null">
+                orderNum,
+            </if>
+            <if test="vipname != null">
+                vipName,
+            </if>
+            <if test="paymoney != null">
+                payMoney,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="area != null">
+                area,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="tel != null">
+                tel,
+            </if>
+            <if test="productname != null">
+                productName,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="ordernum != null">
+                #{ordernum,jdbcType=VARCHAR},
+            </if>
+            <if test="vipname != null">
+                #{vipname,jdbcType=VARCHAR},
+            </if>
+            <if test="paymoney != null">
+                #{paymoney,jdbcType=REAL},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="productname != null">
+                #{productname,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.springbootdemo.entity.UserInfo">
+        update user_info
+        <set>
+            <if test="ordernum != null">
+                orderNum = #{ordernum,jdbcType=VARCHAR},
+            </if>
+            <if test="vipname != null">
+                vipName = #{vipname,jdbcType=VARCHAR},
+            </if>
+            <if test="paymoney != null">
+                payMoney = #{paymoney,jdbcType=REAL},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                tel = #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="productname != null">
+                productName = #{productname,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.springbootdemo.entity.UserInfo">
+    update user_info
+    set orderNum = #{ordernum,jdbcType=VARCHAR},
+      vipName = #{vipname,jdbcType=VARCHAR},
+      payMoney = #{paymoney,jdbcType=REAL},
+      name = #{name,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      productName = #{productname,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>
