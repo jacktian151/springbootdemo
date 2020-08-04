@@ -134,6 +134,12 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>RELEASE</version>
 		</dependency>
+<!--			String数组转Integer数组-->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.4</version>
+		</dependency>
 	</dependencies>
 
 	<build>

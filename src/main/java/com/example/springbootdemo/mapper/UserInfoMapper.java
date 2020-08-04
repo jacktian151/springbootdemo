@@ -1,6 +1,7 @@
 package com.example.springbootdemo.mapper;
 
 import com.example.springbootdemo.entity.UserInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,5 +23,7 @@ public interface UserInfoMapper {
     int insertdb(List<UserInfo> list);
 
     List<UserInfo> selectAll();
+
+    int deleteByIdlist(@Param("ids") Integer[] ids);
 
 }

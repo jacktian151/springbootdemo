@@ -68,4 +68,10 @@ public class UserInfoServiceImpl implements UserInfoService {
     public List<UserInfo> selectAll() {
         return userInfoMapper.selectAll();
     }
+
+
+    @Override
+    public int deleteByIdlist(Integer[] ids) {
+        return userInfoMapper.deleteByIdlist(ids);
+    }
 }

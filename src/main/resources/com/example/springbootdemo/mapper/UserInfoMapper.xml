@@ -20,6 +20,13 @@
     id, orderNum, vipName, payMoney, name, province, city, area, address, tel, productName, 
     remarks
   </sql>
+    <delete id="deleteByIdlist" parameterType="Integer">
+        delete from user_info
+        where id in
+        <foreach collection="ids" item="id"  open="(" separator="," close=")" index="index">
+            #{id}
+        </foreach>
+    </delete>
     <select id="selectAll" resultMap="BaseResultMap">
         select *
         from user_info
