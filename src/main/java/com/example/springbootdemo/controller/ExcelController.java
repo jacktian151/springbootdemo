@@ -20,6 +20,7 @@ import java.io.InputStream;
  */
 @Slf4j
 @RestController
+@RequestMapping("/excel")
 public class ExcelController {
 
     @Autowired
