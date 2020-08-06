@@ -26,4 +26,10 @@ public interface UserInfoMapper {
 
     int deleteByIdlist(@Param("ids") Integer[] ids);
 
+//    分页查询
+    List<UserInfo> selectByPage(Integer currentPage , Integer pageSize);
+
+//    查询所有数据量
+    int usercount();
+
 }

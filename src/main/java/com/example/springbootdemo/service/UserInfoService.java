@@ -10,5 +10,8 @@ public interface UserInfoService {
     void insertdb(InputStream in, MultipartFile file) throws Exception;
     List<UserInfo> selectAll();
     int deleteByIdlist(Integer[] ids);
+    List<UserInfo> selectByPage(Integer currentPage , Integer pageSize);
+    int usercount();
+
 
 }

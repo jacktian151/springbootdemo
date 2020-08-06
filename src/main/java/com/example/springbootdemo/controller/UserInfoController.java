@@ -28,6 +28,18 @@ public class UserInfoController {
     @ResponseBody
     public int deleteByIdlist(@RequestBody Integer[] lists) {
         return userInfoService.deleteByIdlist(lists);
-
     }
+
+    @RequestMapping("/getByPage")
+    @ResponseBody
+    public List<UserInfo> selectByPage( Integer currentPage, Integer pageSize) {
+        return userInfoService.selectByPage(currentPage,pageSize);
+    }
+
+    @RequestMapping("/userCount")
+    @ResponseBody
+    public int usercount() {
+        return userInfoService.usercount();
+    }
+
 }

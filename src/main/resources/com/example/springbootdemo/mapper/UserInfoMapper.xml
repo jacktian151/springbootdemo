@@ -20,6 +20,14 @@
     id, orderNum, vipName, payMoney, name, province, city, area, address, tel, productName, 
     remarks
   </sql>
+    <select id="usercount" resultType="Integer">
+        select count(*)
+        from user_info
+    </select>
+    <select id="selectByPage" parameterType="Integer" resultMap="BaseResultMap">
+        select * from user_info
+        limit #{currentPage} , #{pageSize}
+    </select>
     <delete id="deleteByIdlist" parameterType="Integer">
         delete from user_info
         where id in

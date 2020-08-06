@@ -74,4 +74,15 @@ public class UserInfoServiceImpl implements UserInfoService {
     public int deleteByIdlist(Integer[] ids) {
         return userInfoMapper.deleteByIdlist(ids);
     }
+
+    @Override
+    public List<UserInfo> selectByPage(Integer currentPage, Integer pageSize) {
+        int cur = (currentPage-1)*pageSize;
+        return userInfoMapper.selectByPage(cur,pageSize);
+    }
+
+    @Override
+    public int usercount() {
+        return userInfoMapper.usercount();
+    }
 }

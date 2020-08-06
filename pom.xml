@@ -140,6 +140,12 @@
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.9.4</version>
 		</dependency>
+
+<!--		&lt;!&ndash;集成solr搜索引擎客户端&ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-data-solr</artifactId>-->
+<!--		</dependency>-->
 	</dependencies>
 
 	<build>
